@@ -1,11 +1,13 @@
+import { useLinkProps } from '@react-navigation/native';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button} from 'react-native';
 import Style from "../../utilis/AppStyle";
 
-const Dashboard = () => {
+const Dashboard = (props) => {
   return (
     <View style={Style.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <Text></Text>
+      <Button onPress = {() => {props.navigation.navigate('test')}} title = 'Go To Test' />
     </View>
   );
 }
