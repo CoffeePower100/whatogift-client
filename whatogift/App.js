@@ -1,12 +1,16 @@
+import React, {useState} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { TabsNavigator } from './src/navigation';
+import { TabsNavigator, AccountStack } from './src/navigation';
+
+const [isLogin, setIsLogin] = useState(false);
 
 export default function App() {
   return (
     <NavigationContainer>
-      <TabsNavigator />
+      {
+        isLogin ? (<TabsNavigator />) : (<AccountStack />)
+      }
     </NavigationContainer>
   );
 }
-
