@@ -1,22 +1,13 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import Style from "../../utilis/AppStyle";
+import React from 'react'
+import { View, Text} from 'react-native';
+import Style from '../../utilis/AppStyle';
 
 const Favorites = () => {
-  return (
-    <View style={Style.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
-  );
+    return(
+        <View style={Style.container}>
+            <Text>Favorite</Text>
+        </View>
+    )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 export default Favorites;

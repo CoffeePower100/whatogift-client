@@ -3,9 +3,10 @@ import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { TabsNavigator, AccountStack } from './src/navigation';
 
-const [isLogin, setIsLogin] = useState(false);
-
 export default function App() {
+
+  const [isLogin, setIsLogin] = useState(!false);
+
   return (
     <NavigationContainer>
       {
