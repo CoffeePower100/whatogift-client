@@ -1,0 +1,8 @@
+get companies -> post
+
+parameters: latitude, longitude,
+output: distance
+
+distance? geolib npm install geolib 
+import {getDistance} from geolib;
+

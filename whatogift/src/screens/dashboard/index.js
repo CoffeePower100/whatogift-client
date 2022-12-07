@@ -11,17 +11,15 @@ const Dashboard = (props) => {
     const [token, setToken] = useState('');
 
     const getDataFromAsync = useCallback(async ()=> {
-        // console.log('2');
-        const dataFromAsync = await AsyncStorage.getItem('Token');
+        const dataFromAsync = await AsyncStorage.getItem('Account');
         if(dataFromAsync != null){
-            // console.log('3');
             const data = JSON.parse(dataFromAsync);
             setToken(data.token);
+
         }
     },[setToken])
 
     useEffect(() => {
-        // console.log('1');
         getDataFromAsync();
     },[getDataFromAsync])
 
