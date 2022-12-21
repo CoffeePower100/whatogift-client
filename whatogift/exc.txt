@@ -6,3 +6,7 @@ output: distance
 distance? geolib npm install geolib 
 import {getDistance} from geolib;
 
+redux save after login (creating dashboard)
+get current user geolocation,
+save on store.
+

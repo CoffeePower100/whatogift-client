@@ -11,7 +11,7 @@ export const loginDispatch = (data) => {
 export const login = (email, password) => {
     return async dispatch => { 
         try {
-            const url = 'http://10.70.1.241:3001/api/account/login';
+            const url = 'http://10.70.2.9:3001/api/account/login';
             const request = await fetch(url, {
                 method: 'post',
                 headers: {'Content-Type' : 'application/json'},
