@@ -15,7 +15,9 @@ export const loginDispatch = (data) => {
     }
 }
 
-
+// ip address to replace.
+const PORT = 3001;
+const IP_ADDRESS = `10.70.2.9:${PORT}`;
 
 export const find_gift = (
     token, location, eventTags,
@@ -24,10 +26,9 @@ export const find_gift = (
 ) => {
     return async dispatch => {
         try {
-            const url = 'http://10.70.2.9:3001/api/product/get_all_products';
-            console.log(`Bearer ${token}`)
+            const url = `http://${IP_ADDRESS}/api/product/get_all_products`;
             const request = await fetch(url, {
-                method: 'post',
+                method: 'get'/*,
                 headers: {
                     'Content-Type' : 'application/json',
                     'Authorization': `Bearer ${token}`
@@ -42,11 +43,10 @@ export const find_gift = (
                     age: age,
                     locationRadius: locationRadius,
                     related: related
-                })
+                })*/
             })
-            console.log('sending request to the server')
             const data = await request.json();
-            console.log(data)
+            console.log(data);
             if(data.status){
                 dispatch(find_gift_dispatch(data))
             } else {
@@ -73,7 +73,7 @@ export const getOverviewDispatch = (data) => {
 export const getOverview = (token, location) => {
     return async dispatch => {
         try {
-            const url = 'http://10.70.2.9:3001/api/company/get_companies_by_location';
+            const url = `http://${IP_ADDRESS}}/api/company/get_companies_by_location`;
             const request = await fetch(url, {
                 method: 'post',
                 headers: {
@@ -106,7 +106,7 @@ export const getOverview = (token, location) => {
 export const signup = (email,password,firstName,lastName,uid) => {
     return async dispatch => {
         try {
-            const url = 'http://10.70.2.9:3001/api/account/signup';
+            const url = `http://${IP_ADDRESS}/api/account/signup`;
             const request = await fetch(url, {
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
@@ -121,14 +121,14 @@ export const signup = (email,password,firstName,lastName,uid) => {
             const data = await request.json();
             if(data.status){
                 AsyncStorage.setItem('Account', JSON.stringify({
-                    token: data.userToken,
-                    _id: data.account._id,
-                    firstName: data.account.firstName,
-                    lastName: data.account.lastName,
-                    email: data.account.email,
-                    avatar: data.account.avatar
+                    token: data.token,
+                    _id: data.message._id,
+                    firstName: data.message.firstName,
+                    lastName: data.message.lastName,
+                    email: data.message.email,
+                    avatar: data.message.avatar
                 }));
-                dispatch(loginDispatch(data.account))
+                dispatch(loginDispatch(data.message))
             } else {
                 let message = data.message;
                 throw new Error(message);
@@ -147,9 +147,10 @@ export const signup = (email,password,firstName,lastName,uid) => {
 
 
 export const login = (email,password) => {
+    console.log('loggggin');
     return async dispatch => {
         try {
-            const url = 'http://10.70.2.9:3001/api/account/login';
+            const url = `http://${IP_ADDRESS}/api/account/login`;
             const request = await fetch(url, {
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
@@ -161,14 +162,14 @@ export const login = (email,password) => {
             const data = await request.json();
             if(data.status){
                 AsyncStorage.setItem('Account', JSON.stringify({
-                    token: data.userToken,
-                    _id: data.account._id,
-                    firstName: data.account.firstName,
-                    lastName: data.account.lastName,
-                    email: data.account.email,
-                    avatar: data.account.avatar
+                    token: data.token,
+                    _id: data.message._id,
+                    firstName: data.message.firstName,
+                    lastName: data.message.lastName,
+                    email: data.message.email,
+                    avatar: data.message.avatar
                 }));
-                dispatch(loginDispatch(data.account))
+                dispatch(loginDispatch(data.message))
             } else {
                 let message = data.message;
                 throw new Error(message);

@@ -52,7 +52,9 @@ const Login = () => {
         setIsLoading(true);
         if(email != '' && password != '' && firstName != '' && lastName != '')
             try {
-                const user = await firebase.auth().createUserWithEmailAndPassword(email,password, user.user.uid);
+                const user = await firebase.auth().createUserWithEmailAndPassword(email,password);
+                
+                console.log(user);
                 const action = actions.signup(email,password, firstName, lastName, user.user.uid);
                 dispatch(action);
                 setIsLoading(false);

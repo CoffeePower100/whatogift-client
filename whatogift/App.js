@@ -14,7 +14,8 @@ import reducers from './store/reducers';
 
 
 const rootReducer = combineReducers({
-  appReducer : reducers  
+  appReducer : reducers,
+  giftsList: reducers    
 }); 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
@@ -39,6 +40,7 @@ export default function App() {
   }, [getDataFromAsync])
 
   const [isAuth, setIsAuth] = useState(false);
+  
   if (firebase.apps.length) {
     firebase.auth().onAuthStateChanged((user) => {
       setIsAuth(!!user);

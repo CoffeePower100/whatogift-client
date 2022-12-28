@@ -6,10 +6,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Colors from '../../utilis/AppColors';
 
-import firebase from "../../utilis/firebaseConfig";
+import firebase from '../../utilis/firebaseConfig';
 
 const Dashboard = (props) => {
-    const user = firebase.auth().currentUser();
+    const user = firebase.auth().currentUser;
 
     const [token, setToken] = useState('');
 

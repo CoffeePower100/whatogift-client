@@ -10,12 +10,12 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 appReducer: action.data,
-                token: action.data.token
+                token: action.data.userToken
             }
         case GET_GIFTS:
             return {
                 ...state,
-                giftsList: action.data
+                giftsList: action.data.message
             }
         case GET_OVERVIEW:
             return {
