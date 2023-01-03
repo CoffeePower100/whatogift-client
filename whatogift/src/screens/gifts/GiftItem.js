@@ -4,10 +4,10 @@ import Colors from '../../utilis/AppColors'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 const GiftItem = props => {
-    console.log("PRODUCT" + prop);
+
 
     return(
-        <View style={styles.row}>
+        <TouchableOpacity onPress={props.onclick} style={styles.row}>
             <View style={styles.product_row}>
                 <View style={styles.image_container}>
                     <View style={styles.brand}>
@@ -25,7 +25,7 @@ const GiftItem = props => {
 
                     <View style={{flexDirection:'row', marginTop:7}}>
                         <Ionicons size={18} color={Colors.pink} name='md-location-sharp' />
-                        <Text style={styles.distance}>{/*(props.gift.distance / 200000).toFixed(0)*/}km</Text>
+                        <Text style={styles.distance}>{(props.gift.distance / 200000).toFixed(0)}km</Text>
                     </View>
                 </View>
             </View>
@@ -42,7 +42,7 @@ const GiftItem = props => {
                     <Text style={styles.view}>VIEW</Text>
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 

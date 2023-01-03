@@ -259,12 +259,12 @@ const Gift = (props) => {
                     minimumValue={100}
                     onValueChange={value => setBudget([value[0], value[1]])}/>
 
-                            <TouchableOpacity onPress={find_gift_action} style={Style.btn_container}>
-                                <Text style={Style.btn_white_text}>FIND MY GIFT</Text>
-                            </TouchableOpacity>
+                <TouchableOpacity onPress={find_gift_action} style={Style.btn_container}>
+                    <Text style={Style.btn_white_text}>FIND MY GIFT</Text>
+                </TouchableOpacity>
 
-                        </ScrollView>
-                    </View>
+                            </ScrollView>
+                        </View>
 
                 </Modal>
 
@@ -272,8 +272,9 @@ const Gift = (props) => {
                     giftData ? (
                         <FlatList
                             data={giftData?.giftsList?.message}
-                            keyExtractor={item => item._id}
-                            renderItem={rowItem => <GiftItem gift={rowItem.item} />}
+                            keyExtractor={item => item.gift._id}
+                            renderItem={rowItem => 
+                                <GiftItem onclick={() => {props.navigation.navigate('gift_info', {gift:rowItem.item})}} gift={rowItem.item} />}
                         />
                     ) : (
                         <Text>No gifts for you</Text>
