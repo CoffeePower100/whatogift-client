@@ -117,7 +117,7 @@ const Gift = (props) => {
 
 
     const giftData = useSelector((state) => state.giftsList);
-    console.log('MY GIFTS: ' + JSON.stringify(giftData));
+    console.log('MY GIFTS: ' + JSON.stringify(giftData.giftsList));
 
 
     return (
@@ -271,8 +271,8 @@ const Gift = (props) => {
                 {
                     giftData ? (
                         <FlatList
-                            data={giftData?.giftsList?.message}
-                            keyExtractor={item => item.gift._id}
+                            data={giftData?.giftsList}
+                            keyExtractor={item => item._id}
                             renderItem={rowItem => 
                                 <GiftItem onclick={() => {props.navigation.navigate('gift_info', {gift:rowItem.item})}} gift={rowItem.item} />}
                         />

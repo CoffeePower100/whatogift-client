@@ -17,7 +17,7 @@ export const loginDispatch = (data) => {
 
 // ip address to replace.
 const PORT = 3001;
-const IP_ADDRESS = `10.70.2.9:${PORT}`;
+const IP_ADDRESS = `10.70.1.51:${PORT}`;
 
 export const find_gift = (
     token, location, eventTags,
@@ -126,7 +126,8 @@ export const signup = (email,password,firstName,lastName,uid) => {
                     firstName: data.message.firstName,
                     lastName: data.message.lastName,
                     email: data.message.email,
-                    avatar: data.message.avatar
+                    avatar: data.message.avatar,
+                    myFavorites: data.message.myFavorites
                 }));
                 dispatch(loginDispatch(data.message))
             } else {
@@ -162,15 +163,60 @@ export const login = (email,password) => {
             const data = await request.json();
             if(data.status){
                 AsyncStorage.setItem('Account', JSON.stringify({
-                    token: data.token,
-                    _id: data.message._id,
-                    firstName: data.message.firstName,
-                    lastName: data.message.lastName,
-                    email: data.message.email,
-                    avatar: data.message.avatar
+                    token: data.userToken,
+                    _id: data.account._id,
+                    firstName: data.account.firstName,
+                    lastName: data.account.lastName,
+                    email: data.account.email,
+                    avatar: data.account.avatar,
+                    myFavorites: data.account.myFavorites
                 }));
                 dispatch(loginDispatch(data.message))
             } else {
+                let message = data.message;
+                throw new Error(message);
+            }
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    }
+}
+
+export const addToFavorites = (favProdId) => {
+    return async dispatch => {
+        const token = null;
+        const accountId = null;
+        const accountData = await AsyncStorage.getItem('Account');
+        const parsedAccountData = null;
+        if(accountData != null)
+        {
+            parsedAccountData = (JSON.parse(accountData));
+            token = parsedAccountData.token;
+            accountId = parsedAccountData._id;
+        }
+
+        try {
+            const url = `http://${IP_ADDRESS}/api/account/add_product_to_favorites`;
+            const request = await fetch(url, {
+                method: 'post',
+                headers: 
+                {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    accountId: accountId,
+                    favoriteProductId: favProdId
+                })
+            })
+            const data = await request.json();
+            
+            data["userToken"] = token;
+            if((data.status) && data){
+                dispatch(loginDispatch(data.account))
+            } 
+            else 
+            {
                 let message = data.message;
                 throw new Error(message);
             }

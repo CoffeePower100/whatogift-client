@@ -12,13 +12,13 @@ import Dashboard, {screenOptions as DashboardScreenOptions} from '../screens/das
 
 import Test from '../screens/dashboard/Test';
 import Gifts from '../screens/gifts';
+import GiftInfo, {screenOptions as GiftInfoScreenOptions} from '../screens/gifts/GiftInfo';
 import Favorites from '../screens/favorites';
 import Profile from '../screens/profile';
 
 import Login from '../screens/account/Login';
 import Signup from '../screens/account/Signup';
 import Verify from '../screens/account/Verify';
-import { useColorScheme } from 'react-native';
 
 
 const defaultOptions = {
@@ -46,6 +46,7 @@ export const GiftsStack = () => {
     return(
         <GiftsStackNavigator.Navigator screenOptions={defaultOptions}>
             <GiftsStackNavigator.Screen name='gifts' component={Gifts} />
+            <GiftsStackNavigator.Screen name='gift_info' component={GiftInfo} options={GiftInfoScreenOptions} />
         </GiftsStackNavigator.Navigator>
     )
 }

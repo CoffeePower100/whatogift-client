@@ -1,12 +1,9 @@
-get companies -> post
 
-parameters: latitude, longitude,
-output: distance
+from GiftItem:
+action at redux, that updates current account:
+account -> myFavorites -> product _id,
 
-distance? geolib npm install geolib 
-import {getDistance} from geolib;
+remove favorite:
+...
 
-redux save after login (creating dashboard)
-get current user geolocation,
-save on store.
-
+update accounts in database.

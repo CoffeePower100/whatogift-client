@@ -4,24 +4,23 @@ import Colors from '../../utilis/AppColors'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 const GiftItem = props => {
-
-
+    
     return(
         <TouchableOpacity onPress={props.onclick} style={styles.row}>
             <View style={styles.product_row}>
                 <View style={styles.image_container}>
                     <View style={styles.brand}>
-                        <Text style={styles.brand_text}>{props.gift.gift.brandId.brandName} / {props.gift.gift.categoryId.categoryName}</Text>
+                        <Text style={styles.brand_text}>{props.gift.brandId.brandName} / {props.gift.categoryId.categoryName}</Text>
                     </View>
-                    <Image source={{uri: props.gift.gift.productImage[0].imageSource}} style={styles.image} />
+                    <Image source={{uri: props.gift.productImage[0].imageSource}} style={styles.image} />
                 </View>
                 <View style={styles.product_container}>
-                    <Text>{props.gift.gift.productName}</Text>
-                    <Text style={styles.desc}>{props.gift.gift.productDescription.toString().substring(0,60)}...</Text>
+                    <Text>{props.gift.productName}</Text>
+                    <Text style={styles.desc}>{props.gift.productDescription.toString().substring(0,60)}...</Text>
                 </View>
                 <View style={styles.price_container}>
-                    <Text style={styles.price}>${props.gift.gift.productPrice}</Text>
-                    <Text style={styles.instock}>{props.gift.gift.unitInStock} left</Text>
+                    <Text style={styles.price}>{props.gift.productPrice}$</Text>
+                    <Text style={styles.instock}>{props.gift.unitInStock} left</Text>
 
                     <View style={{flexDirection:'row', marginTop:7}}>
                         <Ionicons size={18} color={Colors.pink} name='md-location-sharp' />
@@ -31,12 +30,12 @@ const GiftItem = props => {
             </View>
             <View style={styles.company_row}>
                 <View style={styles.company_container}>
-                    <Image source={{uri:props.gift.gift.companyId.logo}} style={styles.logo} />
-                    <Text style={styles.company}>{props.gift.gift.companyId.companyName}</Text>
+                    <Image source={{uri:props.gift.companyId.logo}} style={styles.logo} />
+                    <Text style={styles.company}>{props.gift.companyId.companyName}</Text>
                 </View>
                 <View style={styles.instore_container}>
                     <MaterialCommunityIcons size={20} color={Colors.white} name='chat' />
-                    <Text style={styles.reviews}>{props.gift.gift.reviews.length}</Text>
+                    <Text style={styles.reviews}>{props.gift.reviews.length}</Text>
                 </View>
                 <View style={styles.btn_container}>
                     <Text style={styles.view}>VIEW</Text>
