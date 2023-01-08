@@ -17,7 +17,7 @@ export const loginDispatch = (data) => {
 
 // ip address to replace.
 const PORT = 3001;
-const IP_ADDRESS = `10.70.1.51:${PORT}`;
+const IP_ADDRESS = `10.70.1.128:${PORT}`;
 
 export const find_gift = (
     token, location, eventTags,
@@ -129,7 +129,7 @@ export const signup = (email,password,firstName,lastName,uid) => {
                     avatar: data.message.avatar,
                     myFavorites: data.message.myFavorites
                 }));
-                dispatch(loginDispatch(data.message))
+                dispatch(loginDispatch(data))
             } else {
                 let message = data.message;
                 throw new Error(message);
@@ -161,6 +161,7 @@ export const login = (email,password) => {
                 })
             })
             const data = await request.json();
+            console.log(request);
             if(data.status){
                 AsyncStorage.setItem('Account', JSON.stringify({
                     token: data.userToken,
@@ -171,7 +172,7 @@ export const login = (email,password) => {
                     avatar: data.account.avatar,
                     myFavorites: data.account.myFavorites
                 }));
-                dispatch(loginDispatch(data.message))
+                dispatch(loginDispatch(data))
             } else {
                 let message = data.message;
                 throw new Error(message);
@@ -184,10 +185,10 @@ export const login = (email,password) => {
 
 export const addToFavorites = (favProdId) => {
     return async dispatch => {
-        const token = null;
-        const accountId = null;
+        let token = null;
+        let accountId = null;
+        let parsedAccountData = null;
         const accountData = await AsyncStorage.getItem('Account');
-        const parsedAccountData = null;
         if(accountData != null)
         {
             parsedAccountData = (JSON.parse(accountData));
@@ -210,10 +211,11 @@ export const addToFavorites = (favProdId) => {
                 })
             })
             const data = await request.json();
-            
-            data["userToken"] = token;
+            console.log(request);
             if((data.status) && data){
-                dispatch(loginDispatch(data.account))
+                data["userToken"] = token;
+                dispatch(loginDispatch(data))
+                //dispatch(getOverviewDispatch(data.account));//Same reducer?
             } 
             else 
             {

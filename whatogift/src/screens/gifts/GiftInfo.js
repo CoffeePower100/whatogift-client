@@ -2,26 +2,30 @@ import React from "react";
 import {View, TouchableOpacity, ScrollView, Text, Image} from 'react-native';
 import Styles from '../../utilis/AppStyle';
 import * as actions from '../../../store/actions';
-import {useDispatch} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const GiftInfo = props => {
-    const account = JSON.stringify(useSelector((state) => state.appReducer));
-    console.log(':::::::::::::::: ' + account);
+    const accountData = (useSelector((state) => state.appReducer));
+    const account = accountData.appReducer;
+    console.log(':::::::::::::::: ' + JSON.stringify(account));
     const giftItem = props.route.params.gift;
+    
+    const dispatch = useDispatch();
+
     const isProdFavorite = () => {
-        return account.myFavorites.includes(giftItem._id);
+        console.log({_id: giftItem._id});
+        console.log(account.myFavorites.includes({_id: giftItem._id}));
+        return account.myFavorites.includes({_id: giftItem._id});
     }
 
     const markAsFavorite = () => {
-        const action = null;
-        const dispatch = null;
 
         if (!isProdFavorite(giftItem._id))
         {
-            action = actions.addToFavorites(giftItem._id);
-            dispatch = useDispatch();
+            const action = actions.addToFavorites(giftItem._id);
             dispatch(action);        
         }
     }

@@ -9,7 +9,7 @@ export default (state = initialState, action) => {
         case LOGIN:
             return {
                 ...state,
-                appReducer: action.data,
+                appReducer: action.data.account,
                 token: action.data.userToken
             }
         case GET_GIFTS:

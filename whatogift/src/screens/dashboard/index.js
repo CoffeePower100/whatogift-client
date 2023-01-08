@@ -31,7 +31,7 @@ const Dashboard = (props) => {
     return(
         <View style={Style.container}>
             <Text>{user.email}</Text>
-            <Button onPress={() => {props.navigation.navigate('test')}} title='Go TO TEST' />
+            <Button onPress={() => {firebase.auth().signOut()}} title='Logout' />
         </View>
     )
 }
