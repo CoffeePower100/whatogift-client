@@ -3,6 +3,7 @@ export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const GET_OVERVIEW = 'GET_OVERVIEW';
 export const GET_GIFTS = 'GET_GIFTS';
+export const GET_MY_DATA = "GET_MY_DATA";
 
 export const logout = () => {
     AsyncStorage.removeItem('Account');
@@ -12,6 +13,12 @@ export const logout = () => {
 export const loginDispatch = (data) => {
     return dispatch => {
         dispatch({ type: LOGIN, data: data })
+    }
+}
+
+export const getMyDataDispatch = (data) => {
+    return dispatch => {
+        dispatch({ type: GET_MY_DATA, data: data })
     }
 }
 
@@ -70,6 +77,35 @@ export const getOverviewDispatch = (data) => {
         dispatch({ type: GET_OVERVIEW, data: data })
     }
 }
+
+export const getMyData = (token) => {
+    return async dispatch => {
+        try {
+            const url = `http://${IP_ADDRESS}}/api/account/get_overview`;
+            const request = await fetch(url, {
+                method: 'get',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+
+            const data = await request.json();
+
+            if(data.status){
+                console.log('The data: ' + JSON.stringify(data.message));
+                dispatch(getMyDataDispatch(data))
+            } else {
+                let message = data.message;
+                throw new Error(message);
+            }
+        } catch (error) {
+            console.log('ERRRRRR: ' + JSON.stringify(error));
+        }
+    }
+}
+
+/*
 export const getOverview = (token, location) => {
     return async dispatch => {
         try {
@@ -98,7 +134,7 @@ export const getOverview = (token, location) => {
             console.log('ERRRRRR: ' + JSON.stringify(error));
         }
     }
-}
+}*/
 
 
 
@@ -130,6 +166,7 @@ export const signup = (email,password,firstName,lastName,uid) => {
                     myFavorites: data.message.myFavorites
                 }));
                 dispatch(loginDispatch(data))
+                dispatch(getMyData(data.userToken))
             } else {
                 let message = data.message;
                 throw new Error(message);
@@ -186,14 +223,13 @@ export const login = (email,password) => {
 export const addToFavorites = (favProdId) => {
     return async dispatch => {
         let token = null;
-        let accountId = null;
+
         let parsedAccountData = null;
         const accountData = await AsyncStorage.getItem('Account');
         if(accountData != null)
         {
             parsedAccountData = (JSON.parse(accountData));
             token = parsedAccountData.token;
-            accountId = parsedAccountData._id;
         }
 
         try {
@@ -212,10 +248,9 @@ export const addToFavorites = (favProdId) => {
             })
             const data = await request.json();
             console.log(request);
-            if((data.status) && data){
-                data["userToken"] = token;
+            if(data && (data.status)){
                 dispatch(loginDispatch(data))
-                //dispatch(getOverviewDispatch(data.account));//Same reducer?
+                dispatch(getMyData(data.userToken))
             } 
             else 
             {

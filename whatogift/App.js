@@ -15,6 +15,7 @@ import reducers from './store/reducers';
 
 const rootReducer = combineReducers({
   appReducer : reducers,
+  perData: reducers,
   giftsList: reducers    
 }); 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
