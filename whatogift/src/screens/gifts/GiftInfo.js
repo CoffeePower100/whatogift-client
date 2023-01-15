@@ -16,9 +16,15 @@ const GiftInfo = props => {
     const dispatch = useDispatch();
 
     const isProdFavorite = () => {
-        console.log({_id: giftItem._id});
-        console.log(account.myFavorites.includes({_id: giftItem._id}));
-        return account.myFavorites.includes({_id: giftItem._id});
+        let isProdInArr = false;
+        account.myFavorites.forEach(currProd => 
+            {
+                if (!isProdInArr) 
+                { 
+                    isProdInArr = (currProd._id == newFavProdId)
+                }
+            });
+        return isProdInArr;
     }
 
     const markAsFavorite = () => {

@@ -24,7 +24,7 @@ export const getMyDataDispatch = (data) => {
 
 // ip address to replace.
 const PORT = 3001;
-const IP_ADDRESS = `10.70.1.128:${PORT}`;
+const IP_ADDRESS = `10.70.1.28:${PORT}`;
 
 export const find_gift = (
     token, location, eventTags,
@@ -223,13 +223,14 @@ export const login = (email,password) => {
 export const addToFavorites = (favProdId) => {
     return async dispatch => {
         let token = null;
-
+        let id = null;
         let parsedAccountData = null;
-        const accountData = await AsyncStorage.getItem('Account');
-        if(accountData != null)
+        const account = await AsyncStorage.getItem('Account');
+        if(account != null)
         {
-            parsedAccountData = (JSON.parse(accountData));
+            parsedAccountData = (JSON.parse(account));
             token = parsedAccountData.token;
+            id = parsedAccountData._id;
         }
 
         try {
@@ -242,12 +243,11 @@ export const addToFavorites = (favProdId) => {
                     'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify({
-                    accountId: accountId,
+                    accountId: id,
                     favoriteProductId: favProdId
                 })
             })
             const data = await request.json();
-            console.log(request);
             if(data && (data.status)){
                 dispatch(loginDispatch(data))
                 dispatch(getMyData(data.userToken))
